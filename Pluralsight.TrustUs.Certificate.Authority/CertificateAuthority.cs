@@ -9,7 +9,7 @@ namespace Pluralsight.TrustUs
         {
             GenerateKeyPair();
             InitializeCertificateStore();
-            CreateIntermediateCert();
+            //CreateIntermediateCert();
         }
 
 
