@@ -9,7 +9,7 @@ namespace Pluralsight.TrustUs
         {
             GenerateKeyPair();
             InitializeCertificateStore();
-            //CreateIntermediateCert();
+            CreateIntermediateCert();
         }
 
 
@@ -71,6 +71,11 @@ namespace Pluralsight.TrustUs
 
         private void InitializeCertificateStore()
         {
+            if(!File.Exists(@"C:\Pluralsight\Keys\TrustUsStore.db"))
+            {
+                var file = File.Create(@"C:\Pluralsight\Keys\TrustUsStore.db");
+                file.Close();
+            }
             var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, "TrustUs", crypt.KEYOPT_CREATE);
             crypt.KeysetClose(certStore);
         }
@@ -80,7 +85,7 @@ namespace Pluralsight.TrustUs
             /***************************************************************/
             /*                  Get the CA Certificate                     */
             /***************************************************************/
-            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\ca.keys",
+            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\RootCA\ca.keys",
                 crypt.KEYOPT_READONLY);
             var caPrivateKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME, "TrustUsCaKeyPair", "P@ssw0rd");
 
@@ -91,7 +96,7 @@ namespace Pluralsight.TrustUs
             crypt.SetAttribute(icaKeyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
             crypt.GenerateKey(icaKeyPair);
 
-            var icaKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\ica.keys",
+            var icaKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\IntermediateCA\ica.keys",
                 crypt.KEYOPT_CREATE);
             crypt.AddPrivateKey(icaKeyStore, icaKeyPair, @"P@ssw0rd");
 
@@ -114,9 +119,11 @@ namespace Pluralsight.TrustUs
             File.WriteAllBytes(@"C:\Pluralsight\Keys\ica.cer", exportedCert);
 
             crypt.DestroyCert(certChain);
-
+            crypt.KeysetClose(icaKeyStore);
             crypt.KeysetClose(caKeyStore);
             crypt.DestroyContext(caPrivateKey);
+            crypt.DestroyContext(icaKeyPair);
+            
         }
     }
 }
