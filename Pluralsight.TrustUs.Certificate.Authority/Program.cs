@@ -41,9 +41,9 @@ namespace Pluralsight.TrustUs
             Console.WriteLine("TrustUs Certificate Authority");
             Console.WriteLine();
             Console.WriteLine("1. Install Certificate Authority");
-            Console.WriteLine("2. List the Football teams");
-            Console.WriteLine("3. Search for a Football team");
-            Console.WriteLine("4. Delete a team");
+            Console.WriteLine("2. Create Key Pair");
+            Console.WriteLine("3. ");
+            Console.WriteLine("4. ");
             Console.WriteLine("5. Exit");
             var result = Console.ReadLine();
             return Convert.ToInt32(result);

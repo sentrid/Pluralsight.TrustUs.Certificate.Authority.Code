@@ -9,13 +9,18 @@ namespace Pluralsight.TrustUs
         {
             GenerateKeyPair();
             InitializeCertificateStore();
-            CreateIntermediateCert();
+            //CreateIntermediateCert();
         }
 
 
         public void StartOcspServer()
         {
             var ocspSession = crypt.CreateSession(crypt.UNUSED, crypt.SESSION_OCSP_SERVER);
+        }
+
+        public void StartCmpServer()
+        {
+
         }
 
         private void GenerateKeyPair()
@@ -31,13 +36,13 @@ namespace Pluralsight.TrustUs
                 crypt.KEYOPT_CREATE);
             crypt.AddPrivateKey(caKeyStore, caKeyPair, @"P@ssw0rd");
 
-            GenerateCaCertificate(caKeyPair, caKeyStore);
+            GenerateRootCaCertificate(caKeyPair, caKeyStore);
 
             crypt.KeysetClose(caKeyStore);
             crypt.DestroyContext(caKeyPair);
         }
 
-        private void GenerateCaCertificate(int caKeyPair, int keyStore)
+        private void GenerateRootCaCertificate(int caKeyPair, int keyStore)
         {
             var certificate = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTIFICATE);
 
@@ -46,7 +51,7 @@ namespace Pluralsight.TrustUs
             crypt.SetAttributeString(certificate, crypt.CERTINFO_ORGANIZATIONNAME, "Trust Us");
             crypt.SetAttributeString(certificate, crypt.CERTINFO_ORGANIZATIONALUNITNAME, "Security");
             crypt.SetAttributeString(certificate, crypt.CERTINFO_COMMONNAME, "Root Certificate Authority");
-            
+
             crypt.SetAttribute(certificate, crypt.CERTINFO_SELFSIGNED, 1);
             crypt.SetAttribute(certificate, crypt.CERTINFO_CA, 1);
 
@@ -71,44 +76,50 @@ namespace Pluralsight.TrustUs
 
         private void InitializeCertificateStore()
         {
-            if(!File.Exists(@"C:\Pluralsight\Keys\TrustUsStore.db"))
+            if (!File.Exists(@"C:\Pluralsight\Keys\TrustUsStore.db"))
             {
                 var file = File.Create(@"C:\Pluralsight\Keys\TrustUsStore.db");
                 file.Close();
             }
+
             var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, "TrustUs", crypt.KEYOPT_CREATE);
             crypt.KeysetClose(certStore);
         }
 
-        private void CreateIntermediateCert()
+        private void CreateIntermediateCert(CaServerConfiguration caServerConfiguration)
         {
             /***************************************************************/
             /*                  Get the CA Certificate                     */
             /***************************************************************/
-            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\RootCA\ca.keys",
+            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, caServerConfiguration.SigningKeyFileName,
                 crypt.KEYOPT_READONLY);
-            var caPrivateKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME, "TrustUsCaKeyPair", "P@ssw0rd");
+            var caPrivateKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME, caServerConfiguration.SigningKeyLabel,
+                caServerConfiguration.SigningKeyPassword);
 
             /* Create an RSA public/private key context, set a label for it, and generate a key into it */
             var icaKeyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
 
-            crypt.SetAttributeString(icaKeyPair, crypt.CTXINFO_LABEL, "TrustUsIcaKeyPair");
+            crypt.SetAttributeString(icaKeyPair, crypt.CTXINFO_LABEL, caServerConfiguration.KeyLabel);
             crypt.SetAttribute(icaKeyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
             crypt.GenerateKey(icaKeyPair);
 
-            var icaKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\IntermediateCA\ica.keys",
+            var icaKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, caServerConfiguration.KeystoreFileName,
                 crypt.KEYOPT_CREATE);
-            crypt.AddPrivateKey(icaKeyStore, icaKeyPair, @"P@ssw0rd");
+            crypt.AddPrivateKey(icaKeyStore, icaKeyPair, caServerConfiguration.PrivateKeyPassword);
 
             var certChain = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTCHAIN);
 
             crypt.SetAttribute(certChain, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, icaKeyPair);
-            crypt.SetAttributeString(certChain, crypt.CERTINFO_COUNTRYNAME, "US");
-            crypt.SetAttributeString(certChain, crypt.CERTINFO_ORGANIZATIONNAME, "Trust Us");
-            crypt.SetAttributeString(certChain, crypt.CERTINFO_ORGANIZATIONALUNITNAME, "Security");
-            crypt.SetAttributeString(certChain, crypt.CERTINFO_COMMONNAME, "Intermediate Certificate Authority");
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_COUNTRYNAME,
+                caServerConfiguration.DistinguishedName.Country);
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_ORGANIZATIONNAME,
+                caServerConfiguration.DistinguishedName.Organization);
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_ORGANIZATIONALUNITNAME,
+                caServerConfiguration.DistinguishedName.OrganizationalUnit);
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_COMMONNAME,
+                caServerConfiguration.DistinguishedName.CommonName);
             crypt.SetAttribute(certChain, crypt.CERTINFO_CA, 1);
-            
+
             crypt.SignCert(certChain, caPrivateKey);
             crypt.AddPublicKey(icaKeyStore, certChain);
 
@@ -116,14 +127,13 @@ namespace Pluralsight.TrustUs
             var exportedCert = new byte[dataSize];
             crypt.ExportCert(exportedCert, dataSize * 2, crypt.CERTFORMAT_CERTIFICATE, certChain);
 
-            File.WriteAllBytes(@"C:\Pluralsight\Keys\ica.cer", exportedCert);
+            File.WriteAllBytes(caServerConfiguration.CertificateFileName, exportedCert);
 
             crypt.DestroyCert(certChain);
             crypt.KeysetClose(icaKeyStore);
             crypt.KeysetClose(caKeyStore);
             crypt.DestroyContext(caPrivateKey);
             crypt.DestroyContext(icaKeyPair);
-            
         }
     }
 }
