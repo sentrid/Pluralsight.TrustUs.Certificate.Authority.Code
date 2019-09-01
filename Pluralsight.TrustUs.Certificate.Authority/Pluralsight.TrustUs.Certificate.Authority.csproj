@@ -43,7 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CaServerConfiguration.cs" />
+    <Compile Include="CertificateConfiguration.cs" />
     <Compile Include="CertificateAuthority.cs" />
     <Compile Include="cryptlib.cs" />
     <Compile Include="DistinguishedName.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace Pluralsight.TrustUs
 {
-    public class CaServerConfiguration
+    public class CertificateConfiguration
     {
         public string SigningKeyFileName { get; set; }
 

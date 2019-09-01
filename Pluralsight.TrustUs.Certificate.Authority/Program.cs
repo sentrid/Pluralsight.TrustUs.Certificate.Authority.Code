@@ -1,30 +1,67 @@
 ﻿using System;
+using System.Collections.Generic;
 using cryptlib;
 
 namespace Pluralsight.TrustUs
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             crypt.Init();
+            var trustUsCertificateAuthority = new CertificateAuthority();
+            var rootCaConfiguration = new CertificateConfiguration
+            {
+                CertificateFileName = @"C:\Pluralsight\Keys\ca.cer",
+                KeystoreFileName = @"C:\Pluralsight\Keys\ca.key",
+                DistinguishedName = new DistinguishedName
+                {
+                    Country = "US",
+                    State = "OH",
+                    Locality = "Cleveland",
+                    Organization = "Trust Us",
+                    OrganizationalUnit = "Certificates",
+                    CommonName = "Root Certificate"
+                },
+                KeyLabel = "Root",
+                PrivateKeyPassword = "P@ssw0rd"
+            };
+
+            var intermediateCertificateAuthorities = new List<CertificateConfiguration>();
+            intermediateCertificateAuthorities.Add(new CertificateConfiguration
+            {
+                CertificateFileName = @"C:\Pluralsight\Keys\clevelandIca.cer",
+                KeystoreFileName = @"C:\Pluralsight\Keys\clevelandIca.key",
+                DistinguishedName = new DistinguishedName
+                {
+                    Country = "US",
+                    State = "OH",
+                    Locality = "Cleveland",
+                    Organization = "Trust Us",
+                    OrganizationalUnit = "Certificates",
+                    CommonName = "Cleveland Certificate"
+                },
+                KeyLabel = "Cleveland",
+                PrivateKeyPassword = "P@ssw0rd",
+                SigningKeyFileName = @"C:\Pluralsight\Keys\ca.key",
+                SigningKeyLabel = "Root",
+                SigningKeyPassword = "P@ssw0rd"
+            });
 
             var done = false;
-            var ca = new CertificateAuthority();
-
             do
             {
-                switch(DisplayMenu())
+                switch (DisplayMenu())
                 {
                     case 1:
-                        ca.Install();
+                        trustUsCertificateAuthority.Install(rootCaConfiguration, intermediateCertificateAuthorities);
                         break;
                     case 5:
                         done = true;
                         break;
                 }
             } while (!done);
-                      
+
             //var keysetOpen = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Keys\ica.keys", crypt.KEYOPT_READONLY);
             //var cert = crypt.GetPublicKey(keysetOpen, crypt.KEYID_NAME, "TrustUsIcaKeyPair");
             //var size = crypt.ExportCert(null, 0, crypt.CERTFORMAT_CERTCHAIN, cert);
@@ -33,10 +70,10 @@ namespace Pluralsight.TrustUs
             //System.IO.File.WriteAllBytes(@"C:\Pluralsight\Keys\ica.cer", certificate);
             //crypt.KeysetClose(keysetOpen);
 
-            crypt.End(); 
+            crypt.End();
         }
 
-        static public int DisplayMenu()
+        public static int DisplayMenu()
         {
             Console.WriteLine("TrustUs Certificate Authority");
             Console.WriteLine();
