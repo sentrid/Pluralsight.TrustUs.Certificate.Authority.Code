@@ -4,8 +4,16 @@ using cryptlib;
 
 namespace Pluralsight.TrustUs
 {
+    /// <summary>
+    /// Class CertificateAuthority.
+    /// </summary>
     public class CertificateAuthority
     {
+        /// <summary>
+        /// Installs the specified root certificate authority.
+        /// </summary>
+        /// <param name="rootCertificateAuthority">The root certificate authority.</param>
+        /// <param name="intermediateCertificateAuthorities">The intermediate certificate authorities.</param>
         public void Install(CertificateConfiguration rootCertificateAuthority,
             List<CertificateConfiguration> intermediateCertificateAuthorities)
         {
@@ -15,11 +23,17 @@ namespace Pluralsight.TrustUs
                 RequestIntermediateCertificate(configuration);
         }
 
+        /// <summary>
+        /// Starts the ocsp server.
+        /// </summary>
         public void StartOcspServer()
         {
             var ocspSession = crypt.CreateSession(crypt.UNUSED, crypt.SESSION_OCSP_SERVER);
         }
 
+        /// <summary>
+        /// Starts the CMP server.
+        /// </summary>
         public void StartCmpServer()
         {
         }
@@ -43,6 +57,10 @@ namespace Pluralsight.TrustUs
         //    crypt.DestroyContext(caKeyPair);
         //}
 
+        /// <summary>
+        /// Generates the root ca certificate.
+        /// </summary>
+        /// <param name="rootCertificateAuthority">The root certificate authority.</param>
         private void GenerateRootCaCertificate(CertificateConfiguration rootCertificateAuthority)
         {
             /* Create an RSA public/private key context, set a label for it, and generate a key into it */
@@ -97,6 +115,9 @@ namespace Pluralsight.TrustUs
             crypt.DestroyCert(certificate);
         }
 
+        /// <summary>
+        /// Initializes the certificate store.
+        /// </summary>
         private void InitializeCertificateStore()
         {
             if (!File.Exists(@"C:\Pluralsight\Keys\TrustUsStore.db"))
@@ -109,6 +130,10 @@ namespace Pluralsight.TrustUs
             crypt.KeysetClose(certStore);
         }
 
+        /// <summary>
+        /// Generates the intermediate certificate.
+        /// </summary>
+        /// <param name="certificateConfiguration">The certificate configuration.</param>
         private void GenerateIntermediateCertificate(CertificateConfiguration certificateConfiguration)
         {
             /***************************************************************/

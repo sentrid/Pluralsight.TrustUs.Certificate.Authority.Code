@@ -1,3 +1,4 @@
+///<exclude />
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -2599,167 +2600,543 @@ public class crypt
 	[DllImport("cl32.dll", EntryPoint="cryptSetAttribute")]
 	private static extern int wrapped_SetAttribute(int cryptHandle, int attributeType, int value);
 
-	[DllImport("cl32.dll", EntryPoint="cryptSetAttributeString")]
+        /// <summary>
+        /// Wrappeds the set attribute string.
+        /// </summary>
+        /// <param name="cryptHandle">The crypt handle.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="valueLength">Length of the value.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptSetAttributeString")]
 	private static extern int wrapped_SetAttributeString(int cryptHandle, int attributeType, IntPtr value, int valueLength);
 
-	[DllImport("cl32.dll", EntryPoint="cryptGetAttribute")]
+        /// <summary>
+        /// Wrappeds the get attribute.
+        /// </summary>
+        /// <param name="cryptHandle">The crypt handle.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptGetAttribute")]
 	private static extern int wrapped_GetAttribute(int cryptHandle, int attributeType, IntPtr value);
 
-	[DllImport("cl32.dll", EntryPoint="cryptGetAttributeString")]
+        /// <summary>
+        /// Wrappeds the get attribute string.
+        /// </summary>
+        /// <param name="cryptHandle">The crypt handle.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="valueLength">Length of the value.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptGetAttributeString")]
 	private static extern int wrapped_GetAttributeString(int cryptHandle, int attributeType, IntPtr value, IntPtr valueLength);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeleteAttribute")]
+        /// <summary>
+        /// Wrappeds the delete attribute.
+        /// </summary>
+        /// <param name="cryptHandle">The crypt handle.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeleteAttribute")]
 	private static extern int wrapped_DeleteAttribute(int cryptHandle, int attributeType);
 
-	[DllImport("cl32.dll", EntryPoint="cryptAddRandom")]
+        /// <summary>
+        /// Wrappeds the add random.
+        /// </summary>
+        /// <param name="randomData">The random data.</param>
+        /// <param name="randomDataLength">Random length of the data.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptAddRandom")]
 	private static extern int wrapped_AddRandom(IntPtr randomData, int randomDataLength);
 
-	[DllImport("cl32.dll", EntryPoint="cryptQueryObject")]
+        /// <summary>
+        /// Wrappeds the query object.
+        /// </summary>
+        /// <param name="objectData">The object data.</param>
+        /// <param name="objectDataLength">Length of the object data.</param>
+        /// <param name="cryptObjectInfo">The crypt object information.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptQueryObject")]
 	private static extern int wrapped_QueryObject(IntPtr objectData, int objectDataLength, IntPtr cryptObjectInfo);
 
-	[DllImport("cl32.dll", EntryPoint="cryptExportKey")]
+        /// <summary>
+        /// Wrappeds the export key.
+        /// </summary>
+        /// <param name="encryptedKey">The encrypted key.</param>
+        /// <param name="encryptedKeyMaxLength">Maximum length of the encrypted key.</param>
+        /// <param name="encryptedKeyLength">Length of the encrypted key.</param>
+        /// <param name="exportKey">The export key.</param>
+        /// <param name="sessionKeyContext">The session key context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptExportKey")]
 	private static extern int wrapped_ExportKey(IntPtr encryptedKey, int encryptedKeyMaxLength, IntPtr encryptedKeyLength, int exportKey, int sessionKeyContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptExportKeyEx")]
+        /// <summary>
+        /// Wrappeds the export key ex.
+        /// </summary>
+        /// <param name="encryptedKey">The encrypted key.</param>
+        /// <param name="encryptedKeyMaxLength">Maximum length of the encrypted key.</param>
+        /// <param name="encryptedKeyLength">Length of the encrypted key.</param>
+        /// <param name="formatType">Type of the format.</param>
+        /// <param name="exportKey">The export key.</param>
+        /// <param name="sessionKeyContext">The session key context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptExportKeyEx")]
 	private static extern int wrapped_ExportKeyEx(IntPtr encryptedKey, int encryptedKeyMaxLength, IntPtr encryptedKeyLength, int formatType, int exportKey, int sessionKeyContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptImportKey")]
+        /// <summary>
+        /// Wrappeds the import key.
+        /// </summary>
+        /// <param name="encryptedKey">The encrypted key.</param>
+        /// <param name="encryptedKeyLength">Length of the encrypted key.</param>
+        /// <param name="importKey">The import key.</param>
+        /// <param name="sessionKeyContext">The session key context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptImportKey")]
 	private static extern int wrapped_ImportKey(IntPtr encryptedKey, int encryptedKeyLength, int importKey, int sessionKeyContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptImportKeyEx")]
+        /// <summary>
+        /// Wrappeds the import key ex.
+        /// </summary>
+        /// <param name="encryptedKey">The encrypted key.</param>
+        /// <param name="encryptedKeyLength">Length of the encrypted key.</param>
+        /// <param name="importKey">The import key.</param>
+        /// <param name="sessionKeyContext">The session key context.</param>
+        /// <param name="returnedContext">The returned context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptImportKeyEx")]
 	private static extern int wrapped_ImportKeyEx(IntPtr encryptedKey, int encryptedKeyLength, int importKey, int sessionKeyContext, IntPtr returnedContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCreateSignature")]
+        /// <summary>
+        /// Wrappeds the create signature.
+        /// </summary>
+        /// <param name="signature">The signature.</param>
+        /// <param name="signatureMaxLength">Maximum length of the signature.</param>
+        /// <param name="signatureLength">Length of the signature.</param>
+        /// <param name="signContext">The sign context.</param>
+        /// <param name="hashContext">The hash context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCreateSignature")]
 	private static extern int wrapped_CreateSignature(IntPtr signature, int signatureMaxLength, IntPtr signatureLength, int signContext, int hashContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCreateSignatureEx")]
+        /// <summary>
+        /// Wrappeds the create signature ex.
+        /// </summary>
+        /// <param name="signature">The signature.</param>
+        /// <param name="signatureMaxLength">Maximum length of the signature.</param>
+        /// <param name="signatureLength">Length of the signature.</param>
+        /// <param name="formatType">Type of the format.</param>
+        /// <param name="signContext">The sign context.</param>
+        /// <param name="hashContext">The hash context.</param>
+        /// <param name="extraData">The extra data.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCreateSignatureEx")]
 	private static extern int wrapped_CreateSignatureEx(IntPtr signature, int signatureMaxLength, IntPtr signatureLength, int formatType, int signContext, int hashContext, int extraData);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCheckSignature")]
+        /// <summary>
+        /// Wrappeds the check signature.
+        /// </summary>
+        /// <param name="signature">The signature.</param>
+        /// <param name="signatureLength">Length of the signature.</param>
+        /// <param name="sigCheckKey">The sig check key.</param>
+        /// <param name="hashContext">The hash context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCheckSignature")]
 	private static extern int wrapped_CheckSignature(IntPtr signature, int signatureLength, int sigCheckKey, int hashContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCheckSignatureEx")]
+        /// <summary>
+        /// Wrappeds the check signature ex.
+        /// </summary>
+        /// <param name="signature">The signature.</param>
+        /// <param name="signatureLength">Length of the signature.</param>
+        /// <param name="sigCheckKey">The sig check key.</param>
+        /// <param name="hashContext">The hash context.</param>
+        /// <param name="extraData">The extra data.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCheckSignatureEx")]
 	private static extern int wrapped_CheckSignatureEx(IntPtr signature, int signatureLength, int sigCheckKey, int hashContext, IntPtr extraData);
 
-	[DllImport("cl32.dll", EntryPoint="cryptKeysetOpen")]
+        /// <summary>
+        /// Wrappeds the keyset open.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="cryptUser">The crypt user.</param>
+        /// <param name="keysetType">Type of the keyset.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptKeysetOpen")]
 	private static extern int wrapped_KeysetOpen(IntPtr keyset, int cryptUser, int keysetType, IntPtr name, int options);
 
-	[DllImport("cl32.dll", EntryPoint="cryptKeysetClose")]
+        /// <summary>
+        /// Wrappeds the keyset close.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptKeysetClose")]
 	private static extern int wrapped_KeysetClose(int keyset);
 
-	[DllImport("cl32.dll", EntryPoint="cryptGetPublicKey")]
+        /// <summary>
+        /// Wrappeds the get public key.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="cryptContext">The crypt context.</param>
+        /// <param name="keyIDtype">The key i dtype.</param>
+        /// <param name="keyID">The key identifier.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptGetPublicKey")]
 	private static extern int wrapped_GetPublicKey(int keyset, IntPtr cryptContext, int keyIDtype, IntPtr keyID);
 
-	[DllImport("cl32.dll", EntryPoint="cryptGetPrivateKey")]
+        /// <summary>
+        /// Wrappeds the get private key.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="cryptContext">The crypt context.</param>
+        /// <param name="keyIDtype">The key i dtype.</param>
+        /// <param name="keyID">The key identifier.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptGetPrivateKey")]
 	private static extern int wrapped_GetPrivateKey(int keyset, IntPtr cryptContext, int keyIDtype, IntPtr keyID, IntPtr password);
 
-	[DllImport("cl32.dll", EntryPoint="cryptGetKey")]
+        /// <summary>
+        /// Wrappeds the get key.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="cryptContext">The crypt context.</param>
+        /// <param name="keyIDtype">The key i dtype.</param>
+        /// <param name="keyID">The key identifier.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptGetKey")]
 	private static extern int wrapped_GetKey(int keyset, IntPtr cryptContext, int keyIDtype, IntPtr keyID, IntPtr password);
 
-	[DllImport("cl32.dll", EntryPoint="cryptAddPublicKey")]
+        /// <summary>
+        /// Wrappeds the add public key.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="certificate">The certificate.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptAddPublicKey")]
 	private static extern int wrapped_AddPublicKey(int keyset, int certificate);
 
-	[DllImport("cl32.dll", EntryPoint="cryptAddPrivateKey")]
+        /// <summary>
+        /// Wrappeds the add private key.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="cryptKey">The crypt key.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptAddPrivateKey")]
 	private static extern int wrapped_AddPrivateKey(int keyset, int cryptKey, IntPtr password);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeleteKey")]
+        /// <summary>
+        /// Wrappeds the delete key.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="keyIDtype">The key i dtype.</param>
+        /// <param name="keyID">The key identifier.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeleteKey")]
 	private static extern int wrapped_DeleteKey(int keyset, int keyIDtype, IntPtr keyID);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCreateCert")]
+        /// <summary>
+        /// Wrappeds the create cert.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="cryptUser">The crypt user.</param>
+        /// <param name="certType">Type of the cert.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCreateCert")]
 	private static extern int wrapped_CreateCert(IntPtr certificate, int cryptUser, int certType);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDestroyCert")]
+        /// <summary>
+        /// Wrappeds the destroy cert.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDestroyCert")]
 	private static extern int wrapped_DestroyCert(int certificate);
 
-	[DllImport("cl32.dll", EntryPoint="cryptGetCertExtension")]
+        /// <summary>
+        /// Wrappeds the get cert extension.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="oid">The oid.</param>
+        /// <param name="criticalFlag">The critical flag.</param>
+        /// <param name="extension">The extension.</param>
+        /// <param name="extensionMaxLength">Maximum length of the extension.</param>
+        /// <param name="extensionLength">Length of the extension.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptGetCertExtension")]
 	private static extern int wrapped_GetCertExtension(int certificate, IntPtr oid, IntPtr criticalFlag, IntPtr extension, int extensionMaxLength, IntPtr extensionLength);
 
-	[DllImport("cl32.dll", EntryPoint="cryptAddCertExtension")]
+        /// <summary>
+        /// Wrappeds the add cert extension.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="oid">The oid.</param>
+        /// <param name="criticalFlag">The critical flag.</param>
+        /// <param name="extension">The extension.</param>
+        /// <param name="extensionLength">Length of the extension.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptAddCertExtension")]
 	private static extern int wrapped_AddCertExtension(int certificate, IntPtr oid, int criticalFlag, IntPtr extension, int extensionLength);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeleteCertExtension")]
+        /// <summary>
+        /// Wrappeds the delete cert extension.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="oid">The oid.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeleteCertExtension")]
 	private static extern int wrapped_DeleteCertExtension(int certificate, IntPtr oid);
 
-	[DllImport("cl32.dll", EntryPoint="cryptSignCert")]
+        /// <summary>
+        /// Wrappeds the sign cert.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="signContext">The sign context.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptSignCert")]
 	private static extern int wrapped_SignCert(int certificate, int signContext);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCheckCert")]
+        /// <summary>
+        /// Wrappeds the check cert.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="sigCheckKey">The sig check key.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCheckCert")]
 	private static extern int wrapped_CheckCert(int certificate, int sigCheckKey);
 
-	[DllImport("cl32.dll", EntryPoint="cryptImportCert")]
+        /// <summary>
+        /// Wrappeds the import cert.
+        /// </summary>
+        /// <param name="certObject">The cert object.</param>
+        /// <param name="certObjectLength">Length of the cert object.</param>
+        /// <param name="cryptUser">The crypt user.</param>
+        /// <param name="certificate">The certificate.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptImportCert")]
 	private static extern int wrapped_ImportCert(IntPtr certObject, int certObjectLength, int cryptUser, IntPtr certificate);
 
-	[DllImport("cl32.dll", EntryPoint="cryptExportCert")]
+        /// <summary>
+        /// Wrappeds the export cert.
+        /// </summary>
+        /// <param name="certObject">The cert object.</param>
+        /// <param name="certObjectMaxLength">Maximum length of the cert object.</param>
+        /// <param name="certObjectLength">Length of the cert object.</param>
+        /// <param name="certFormatType">Type of the cert format.</param>
+        /// <param name="certificate">The certificate.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptExportCert")]
 	private static extern int wrapped_ExportCert(IntPtr certObject, int certObjectMaxLength, IntPtr certObjectLength, int certFormatType, int certificate);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCAAddItem")]
+        /// <summary>
+        /// Wrappeds the ca add item.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="certificate">The certificate.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCAAddItem")]
 	private static extern int wrapped_CAAddItem(int keyset, int certificate);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCAGetItem")]
+        /// <summary>
+        /// Wrappeds the ca get item.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="certType">Type of the cert.</param>
+        /// <param name="keyIDtype">The key i dtype.</param>
+        /// <param name="keyID">The key identifier.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCAGetItem")]
 	private static extern int wrapped_CAGetItem(int keyset, IntPtr certificate, int certType, int keyIDtype, IntPtr keyID);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCADeleteItem")]
+        /// <summary>
+        /// Wrappeds the ca delete item.
+        /// </summary>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="certType">Type of the cert.</param>
+        /// <param name="keyIDtype">The key i dtype.</param>
+        /// <param name="keyID">The key identifier.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCADeleteItem")]
 	private static extern int wrapped_CADeleteItem(int keyset, int certType, int keyIDtype, IntPtr keyID);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCACertManagement")]
+        /// <summary>
+        /// Wrappeds the ca cert management.
+        /// </summary>
+        /// <param name="certificate">The certificate.</param>
+        /// <param name="action">The action.</param>
+        /// <param name="keyset">The keyset.</param>
+        /// <param name="caKey">The ca key.</param>
+        /// <param name="certRequest">The cert request.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCACertManagement")]
 	private static extern int wrapped_CACertManagement(IntPtr certificate, int action, int keyset, int caKey, int certRequest);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCreateEnvelope")]
+        /// <summary>
+        /// Wrappeds the create envelope.
+        /// </summary>
+        /// <param name="envelope">The envelope.</param>
+        /// <param name="cryptUser">The crypt user.</param>
+        /// <param name="formatType">Type of the format.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCreateEnvelope")]
 	private static extern int wrapped_CreateEnvelope(IntPtr envelope, int cryptUser, int formatType);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDestroyEnvelope")]
+        /// <summary>
+        /// Wrappeds the destroy envelope.
+        /// </summary>
+        /// <param name="envelope">The envelope.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDestroyEnvelope")]
 	private static extern int wrapped_DestroyEnvelope(int envelope);
 
-	[DllImport("cl32.dll", EntryPoint="cryptCreateSession")]
+        /// <summary>
+        /// Wrappeds the create session.
+        /// </summary>
+        /// <param name="session">The session.</param>
+        /// <param name="cryptUser">The crypt user.</param>
+        /// <param name="formatType">Type of the format.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptCreateSession")]
 	private static extern int wrapped_CreateSession(IntPtr session, int cryptUser, int formatType);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDestroySession")]
+        /// <summary>
+        /// Wrappeds the destroy session.
+        /// </summary>
+        /// <param name="session">The session.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDestroySession")]
 	private static extern int wrapped_DestroySession(int session);
 
-	[DllImport("cl32.dll", EntryPoint="cryptPushData")]
+        /// <summary>
+        /// Wrappeds the push data.
+        /// </summary>
+        /// <param name="envelope">The envelope.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="bytesCopied">The bytes copied.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptPushData")]
 	private static extern int wrapped_PushData(int envelope, IntPtr buffer, int length, IntPtr bytesCopied);
 
-	[DllImport("cl32.dll", EntryPoint="cryptFlushData")]
+        /// <summary>
+        /// Wrappeds the flush data.
+        /// </summary>
+        /// <param name="envelope">The envelope.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptFlushData")]
 	private static extern int wrapped_FlushData(int envelope);
 
-	[DllImport("cl32.dll", EntryPoint="cryptPopData")]
+        /// <summary>
+        /// Wrappeds the pop data.
+        /// </summary>
+        /// <param name="envelope">The envelope.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="length">The length.</param>
+        /// <param name="bytesCopied">The bytes copied.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptPopData")]
 	private static extern int wrapped_PopData(int envelope, IntPtr buffer, int length, IntPtr bytesCopied);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeviceOpen")]
+        /// <summary>
+        /// Wrappeds the device open.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="cryptUser">The crypt user.</param>
+        /// <param name="deviceType">Type of the device.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeviceOpen")]
 	private static extern int wrapped_DeviceOpen(IntPtr device, int cryptUser, int deviceType, IntPtr name);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeviceClose")]
+        /// <summary>
+        /// Wrappeds the device close.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeviceClose")]
 	private static extern int wrapped_DeviceClose(int device);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeviceQueryCapability")]
+        /// <summary>
+        /// Wrappeds the device query capability.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="cryptAlgo">The crypt algo.</param>
+        /// <param name="cryptQueryInfo">The crypt query information.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeviceQueryCapability")]
 	private static extern int wrapped_DeviceQueryCapability(int device, int cryptAlgo, IntPtr cryptQueryInfo);
 
-	[DllImport("cl32.dll", EntryPoint="cryptDeviceCreateContext")]
+        /// <summary>
+        /// Wrappeds the device create context.
+        /// </summary>
+        /// <param name="device">The device.</param>
+        /// <param name="cryptContext">The crypt context.</param>
+        /// <param name="cryptAlgo">The crypt algo.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptDeviceCreateContext")]
 	private static extern int wrapped_DeviceCreateContext(int device, IntPtr cryptContext, int cryptAlgo);
 
-	[DllImport("cl32.dll", EntryPoint="cryptLogin")]
+        /// <summary>
+        /// Wrappeds the login.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="password">The password.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptLogin")]
 	private static extern int wrapped_Login(IntPtr user, IntPtr name, IntPtr password);
 
-	[DllImport("cl32.dll", EntryPoint="cryptLogout")]
+        /// <summary>
+        /// Wrappeds the logout.
+        /// </summary>
+        /// <param name="user">The user.</param>
+        /// <returns>System.Int32.</returns>
+        [DllImport("cl32.dll", EntryPoint="cryptLogout")]
 	private static extern int wrapped_Logout(int user);
 
 
-    /* Helper Functions */
+        /* Helper Functions */
 
-    private static void processStatus(int status)
+        /// <summary>
+        /// Processes the status.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <exception cref="cryptlib.CryptException"></exception>
+        private static void processStatus(int status)
     {
         if (status < crypt.OK)
             throw new CryptException(status);
     }
 
 
-    private static void processStatus(int status, int extraInfo)
+        /// <summary>
+        /// Processes the status.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="extraInfo">The extra information.</param>
+        /// <exception cref="cryptlib.CryptException"></exception>
+        private static void processStatus(int status, int extraInfo)
     {
         if (status < crypt.OK)
             throw new CryptException(status, extraInfo);
     }
 
-    private static void checkIndices(byte[] array, int sequenceOffset, int sequenceLength)
+        /// <summary>
+        /// Checks the indices.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="sequenceOffset">The sequence offset.</param>
+        /// <param name="sequenceLength">Length of the sequence.</param>
+        /// <exception cref="System.IndexOutOfRangeException">
+        /// </exception>
+        private static void checkIndices(byte[] array, int sequenceOffset, int sequenceLength)
     {
         if (array == null)
         {
@@ -2777,7 +3154,14 @@ public class crypt
             throw new IndexOutOfRangeException();
     }
 
-    private static void getPointer(byte[] buffer, int bufferOffset, ref GCHandle bufferHandle, ref IntPtr bufferPtr)
+        /// <summary>
+        /// Gets the pointer.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="bufferOffset">The buffer offset.</param>
+        /// <param name="bufferHandle">The buffer handle.</param>
+        /// <param name="bufferPtr">The buffer PTR.</param>
+        private static void getPointer(byte[] buffer, int bufferOffset, ref GCHandle bufferHandle, ref IntPtr bufferPtr)
     {
         if (buffer == null)
             return;
@@ -2785,25 +3169,58 @@ public class crypt
         bufferPtr = Marshal.UnsafeAddrOfPinnedArrayElement(buffer, bufferOffset);
     }
 
-    private static void releasePointer(GCHandle bufferHandle)
+        /// <summary>
+        /// Releases the pointer.
+        /// </summary>
+        /// <param name="bufferHandle">The buffer handle.</param>
+        private static void releasePointer(GCHandle bufferHandle)
     {
         if (bufferHandle.IsAllocated)
             bufferHandle.Free();
     }
 }
 
-[StructLayout(LayoutKind.Sequential, Pack=0, CharSet=CharSet.Ansi)]
+    /// <summary>
+    /// Class CRYPT_QUERY_INFO.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack=0, CharSet=CharSet.Ansi)]
 public class CRYPT_QUERY_INFO
 {
-    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=64)]public String algoName;
-    public int blockSize;
-    public int minKeySize;
-    public int keySize;
-    public int maxKeySize;
+        /// <summary>
+        /// The algo name
+        /// </summary>
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst=64)]public String algoName;
+        /// <summary>
+        /// The block size
+        /// </summary>
+        public int blockSize;
+        /// <summary>
+        /// The minimum key size
+        /// </summary>
+        public int minKeySize;
+        /// <summary>
+        /// The key size
+        /// </summary>
+        public int keySize;
+        /// <summary>
+        /// The maximum key size
+        /// </summary>
+        public int maxKeySize;
 
-    public CRYPT_QUERY_INFO(){}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CRYPT_QUERY_INFO"/> class.
+        /// </summary>
+        public CRYPT_QUERY_INFO(){}
 
-    public CRYPT_QUERY_INFO(String newAlgoName, int newBlockSize, int newMinKeySize, int newKeySize, int newMaxKeySize)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CRYPT_QUERY_INFO"/> class.
+        /// </summary>
+        /// <param name="newAlgoName">New name of the algo.</param>
+        /// <param name="newBlockSize">New size of the block.</param>
+        /// <param name="newMinKeySize">New size of the minimum key.</param>
+        /// <param name="newKeySize">New size of the key.</param>
+        /// <param name="newMaxKeySize">New size of the maximum key.</param>
+        public CRYPT_QUERY_INFO(String newAlgoName, int newBlockSize, int newMinKeySize, int newKeySize, int newMaxKeySize)
     {
         algoName = newAlgoName;
         blockSize = newBlockSize;
@@ -2813,23 +3230,55 @@ public class CRYPT_QUERY_INFO
     }
 }
 
-[StructLayout(LayoutKind.Sequential, Pack=0, CharSet=CharSet.Ansi)]
+    /// <summary>
+    /// Class CRYPT_OBJECT_INFO.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack=0, CharSet=CharSet.Ansi)]
 public class CRYPT_OBJECT_INFO
 {
-    public int objectType;
-    public int cryptAlgo;
-    public int cryptMode;
-    public int hashAlgo;
-    [MarshalAs(UnmanagedType.ByValArray, SizeConst=32)]public byte[] salt;
-    public int saltSize;
+        /// <summary>
+        /// The object type
+        /// </summary>
+        public int objectType;
+        /// <summary>
+        /// The crypt algo
+        /// </summary>
+        public int cryptAlgo;
+        /// <summary>
+        /// The crypt mode
+        /// </summary>
+        public int cryptMode;
+        /// <summary>
+        /// The hash algo
+        /// </summary>
+        public int hashAlgo;
+        /// <summary>
+        /// The salt
+        /// </summary>
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst=32)]public byte[] salt;
+        /// <summary>
+        /// The salt size
+        /// </summary>
+        public int saltSize;
 
-    public CRYPT_OBJECT_INFO()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CRYPT_OBJECT_INFO"/> class.
+        /// </summary>
+        public CRYPT_OBJECT_INFO()
     {
         salt = new byte[64];
         saltSize = 64;
     }
 
-    public CRYPT_OBJECT_INFO(int newObjectType, int newCryptAlgo, int newCryptMode, int newHashAlgo, byte[] newSalt)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CRYPT_OBJECT_INFO"/> class.
+        /// </summary>
+        /// <param name="newObjectType">New type of the object.</param>
+        /// <param name="newCryptAlgo">The new crypt algo.</param>
+        /// <param name="newCryptMode">The new crypt mode.</param>
+        /// <param name="newHashAlgo">The new hash algo.</param>
+        /// <param name="newSalt">The new salt.</param>
+        public CRYPT_OBJECT_INFO(int newObjectType, int newCryptAlgo, int newCryptMode, int newHashAlgo, byte[] newSalt)
     {
         objectType = newObjectType;
         cryptAlgo = newCryptAlgo;
@@ -2838,26 +3287,53 @@ public class CRYPT_OBJECT_INFO
     }
 }
 
-public class CryptException : ApplicationException
+    /// <summary>
+    /// Class CryptException.
+    /// Implements the <see cref="System.ApplicationException" />
+    /// </summary>
+    /// <seealso cref="System.ApplicationException" />
+    public class CryptException : ApplicationException
 {
-    public int Status { get { return (int)Data["Status"]; } }
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>The status.</value>
+        public int Status { get { return (int)Data["Status"]; } }
 
-    public int ExtraInfo { get { return (int)Data["ExtraInfo"]; } }
+        /// <summary>
+        /// Gets the extra information.
+        /// </summary>
+        /// <value>The extra information.</value>
+        public int ExtraInfo { get { return (int)Data["ExtraInfo"]; } }
 
-    public CryptException(int status)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CryptException"/> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        public CryptException(int status)
         : base(convertMessage(status))
     {
         Data.Add("Status", status);
     }
 
-    public CryptException(int status, int extra)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CryptException"/> class.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <param name="extra">The extra.</param>
+        public CryptException(int status, int extra)
         : base(convertMessage(status))
     {
         Data.Add("Status", status);
         Data.Add("ExtraInfo", extra);
     }
 
-    private static string convertMessage(int status)
+        /// <summary>
+        /// Converts the message.
+        /// </summary>
+        /// <param name="status">The status.</param>
+        /// <returns>System.String.</returns>
+        private static string convertMessage(int status)
     {
         String prefix = Convert.ToString(status) + ": ";
         switch (status)
