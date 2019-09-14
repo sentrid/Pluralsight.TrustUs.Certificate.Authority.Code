@@ -61,7 +61,7 @@ namespace Pluralsight.TrustUs
         /// Generates the root ca certificate.
         /// </summary>
         /// <param name="rootCertificateAuthority">The root certificate authority.</param>
-        private void GenerateRootCaCertificate(CertificateConfiguration rootCertificateAuthority)
+        private void GenerateRootCaCertificate(CertificateAuthorityConfiguration rootCertificateAuthority)
         {
             /* Create an RSA public/private key context, set a label for it, and generate a key into it */
             var caKeyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
@@ -95,10 +95,10 @@ namespace Pluralsight.TrustUs
             crypt.SetAttribute(certificate, crypt.CERTINFO_CA, 1);
 
             crypt.SetAttribute(certificate, crypt.ATTRIBUTE_CURRENT, crypt.CERTINFO_AUTHORITYINFO_CERTSTORE);
-            crypt.SetAttributeString(certificate, crypt.CERTINFO_UNIFORMRESOURCEIDENTIFIER, "http://www.domain.com");
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_UNIFORMRESOURCEIDENTIFIER, rootCertificateAuthority.CertStoreUrl);
 
             crypt.SetAttribute(certificate, crypt.ATTRIBUTE_CURRENT, crypt.CERTINFO_AUTHORITYINFO_OCSP);
-            crypt.SetAttributeString(certificate, crypt.CERTINFO_UNIFORMRESOURCEIDENTIFIER, "http://www.domain.com");
+            crypt.SetAttributeString(certificate, crypt.CERTINFO_UNIFORMRESOURCEIDENTIFIER, rootCertificateAuthority.OcspUrl);
 
             crypt.SignCert(certificate, caKeyPair);
 
@@ -108,7 +108,7 @@ namespace Pluralsight.TrustUs
             var exportedCert = new byte[dataSize];
             crypt.ExportCert(exportedCert, dataSize, crypt.CERTFORMAT_CERTIFICATE, certificate);
 
-            File.WriteAllBytes(@"C:\Pluralsight\Keys\ca.cer", exportedCert);
+            File.WriteAllBytes(rootCertificateAuthority.CertificateFileName, exportedCert);
 
             crypt.KeysetClose(caKeyStore);
             crypt.DestroyContext(caKeyPair);

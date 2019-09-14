@@ -43,10 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertificateAuthorityConfiguration.cs" />
     <Compile Include="CertificateConfiguration.cs" />
     <Compile Include="CertificateAuthority.cs" />
     <Compile Include="cryptlib.cs" />
     <Compile Include="DistinguishedName.cs" />
+    <Compile Include="Key.cs" />
+    <Compile Include="KeyConfiguration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
