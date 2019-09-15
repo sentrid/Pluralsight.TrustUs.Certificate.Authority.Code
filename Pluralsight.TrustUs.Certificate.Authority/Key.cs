@@ -2,15 +2,23 @@
 
 namespace Pluralsight.TrustUs
 {
-    public class Key
+    public static class Key
     {
-        public void GenerateKeyPair(string label, string password, string csrFileName, string keyFileName)
+        public static void GenerateKeyPair(KeyConfiguration keyConfiguration)
         {
-            var caKeyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
+            var keyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
+            crypt.SetAttributeString(keyPair, crypt.CTXINFO_LABEL, keyConfiguration.KeyLabel);
+            crypt.SetAttribute(keyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
+            crypt.GenerateKey(keyPair);
+            var keyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, keyConfiguration.KeystoreFileName,
+                crypt.KEYOPT_CREATE);
+            crypt.AddPrivateKey(keyStore, keyPair, keyConfiguration.PrivateKeyPassword);
+            crypt.KeysetClose(keyStore);
 
-            crypt.SetAttributeString(caKeyPair, crypt.CTXINFO_LABEL, "");
-            crypt.SetAttribute(caKeyPair, crypt.CTXINFO_KEYSIZE, 2048 / 8);
-            crypt.GenerateKey(caKeyPair);
+            var certClass = new Certificate();
+            certClass.CreateSigningRequest(keyConfiguration, keyPair);
+
+            crypt.DestroyContext(keyPair);
         }
     }
 }

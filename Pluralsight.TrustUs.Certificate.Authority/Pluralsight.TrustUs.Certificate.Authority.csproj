@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Certificate.cs" />
     <Compile Include="CertificateAuthorityConfiguration.cs" />
     <Compile Include="CertificateConfiguration.cs" />
     <Compile Include="CertificateAuthority.cs" />
+    <Compile Include="ConfigurationData.cs" />
     <Compile Include="cryptlib.cs" />
     <Compile Include="DistinguishedName.cs" />
     <Compile Include="Key.cs" />
