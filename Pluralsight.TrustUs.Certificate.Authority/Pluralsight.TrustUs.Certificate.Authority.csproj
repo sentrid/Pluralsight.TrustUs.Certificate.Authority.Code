@@ -44,14 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Certificate.cs" />
-    <Compile Include="CertificateAuthorityConfiguration.cs" />
-    <Compile Include="CertificateConfiguration.cs" />
+    <Compile Include="DataStructures\CertificateAuthorityConfiguration.cs" />
+    <Compile Include="DataStructures\CertificateConfiguration.cs" />
     <Compile Include="CertificateAuthority.cs" />
-    <Compile Include="ConfigurationData.cs" />
-    <Compile Include="cryptlib.cs" />
-    <Compile Include="DistinguishedName.cs" />
+    <Compile Include="DataStructures\ConfigurationData.cs" />
+    <Compile Include="Libraries\cryptlib.cs" />
+    <Compile Include="DataStructures\DistinguishedName.cs" />
     <Compile Include="Key.cs" />
-    <Compile Include="KeyConfiguration.cs" />
+    <Compile Include="DataStructures\KeyConfiguration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,9 +59,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cl32.dll">
+    <Content Include="Libraries\cl32.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

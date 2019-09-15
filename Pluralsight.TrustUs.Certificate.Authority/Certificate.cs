@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using cryptlib;
+using Pluralsight.TrustUs.DataStructures;
+using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
@@ -15,7 +16,7 @@ namespace Pluralsight.TrustUs
             return certificateBuffer;
         }
 
-        private string ExportCertificateAsText(int certificateHandle)
+        public string ExportCertificateAsText(int certificateHandle)
         {
             var certificateSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_TEXT_CERTIFICATE, certificateHandle);
             var certificateBuffer = new byte[certificateSize];
@@ -57,7 +58,7 @@ namespace Pluralsight.TrustUs
             crypt.SignCert(certificate, keyPairContext);
             
             var certificateText = ExportCertificateAsText(certificate);
-            File.WriteAllText(keyConfiguration.CertificateFileName, certificateText);
+            File.WriteAllText(keyConfiguration.CertificateRequestFileName, certificateText);
 
             crypt.DestroyCert(certificate);
 

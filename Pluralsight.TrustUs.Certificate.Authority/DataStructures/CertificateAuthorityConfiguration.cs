@@ -1,4 +1,4 @@
-﻿namespace Pluralsight.TrustUs
+﻿namespace Pluralsight.TrustUs.DataStructures
 {
     public class CertificateAuthorityConfiguration : CertificateConfiguration
     {

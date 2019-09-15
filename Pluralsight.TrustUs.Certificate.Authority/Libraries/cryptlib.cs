@@ -1,9 +1,10 @@
 ///<exclude />
+
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace cryptlib
+namespace Pluralsight.TrustUs.Libraries
 {
 
 public class crypt
@@ -3108,7 +3109,7 @@ public class crypt
         /// Processes the status.
         /// </summary>
         /// <param name="status">The status.</param>
-        /// <exception cref="cryptlib.CryptException"></exception>
+        /// <exception cref="CryptException"></exception>
         private static void processStatus(int status)
     {
         if (status < crypt.OK)
@@ -3121,7 +3122,7 @@ public class crypt
         /// </summary>
         /// <param name="status">The status.</param>
         /// <param name="extraInfo">The extra information.</param>
-        /// <exception cref="cryptlib.CryptException"></exception>
+        /// <exception cref="CryptException"></exception>
         private static void processStatus(int status, int extraInfo)
     {
         if (status < crypt.OK)
