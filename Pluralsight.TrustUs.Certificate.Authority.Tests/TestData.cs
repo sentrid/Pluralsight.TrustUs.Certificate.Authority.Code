@@ -1,6 +1,6 @@
 ﻿using Pluralsight.TrustUs.DataStructures;
 
-namespace Pluralsight.TrustUs.Certificate.Authority.Tests
+namespace Pluralsight.TrustUs.Tests
 {
     public class TestData
     {

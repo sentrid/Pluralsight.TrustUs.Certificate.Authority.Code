@@ -8,8 +8,8 @@
     <ProjectGuid>{FED7B67F-1B53-4BD4-80C3-9497A0603A1A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pluralsight.TrustUs.Certificate.Authority.Tests</RootNamespace>
-    <AssemblyName>Pluralsight.TrustUs.Certificate.Authority.Tests</AssemblyName>
+    <RootNamespace>Pluralsight.TrustUs.Tests</RootNamespace>
+    <AssemblyName>Pluralsight.TrustUs.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

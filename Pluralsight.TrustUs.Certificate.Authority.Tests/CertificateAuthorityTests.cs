@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
 
-namespace Pluralsight.TrustUs.Certificate.Authority.Tests
+namespace Pluralsight.TrustUs.Tests
 {
     [TestClass]
     public class CertificateAuthorityTests
@@ -52,7 +51,7 @@ namespace Pluralsight.TrustUs.Certificate.Authority.Tests
         [TestMethod]
         public void TestSubmitCsr()
         {
-            var keyConfiguration = new KeyConfiguration
+            var keyConfiguration = new CertificateConfiguration
             {
                 CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\DuckAir.csr",
                 CertificateFileName = @"C:\Pluralsight\Test\Keys\DuckAir.cer",
@@ -67,11 +66,22 @@ namespace Pluralsight.TrustUs.Certificate.Authority.Tests
                     Locality = "Cleveland",
                     State = "OH",
                     Country = "US"
-                }
+                },
+                SigningKeyLabel = "Cleveland",
+                SigningKeyFileName = @"C:\Pluralsight\Test\Keys\ClevelandIca.key",
+                SigningKeyPassword = "P@ssw0rd"
             };
             Key.GenerateKeyPair(keyConfiguration);
             var certificateAuthority = new CertificateAuthority();
-            certificateAuthority.SubmitCertificateRequest(keyConfiguration);
+            certificateAuthority.SubmitCertificateRequest(@"C:\Pluralsight\Test\Keys\Duckair.csr");
+            certificateAuthority.IssueCertificate(keyConfiguration);
+        }
+
+        [TestMethod]
+        public void TestRevoke()
+        {
+            var cert = new Certificate();
+            cert.CreateRevocationRequest(@"C:\Pluralsight\Test\Keys\DuckAir.cer", @"C:\Pluralsight\Test\Keys\DuckAir.crlq");
         }
     }
 }

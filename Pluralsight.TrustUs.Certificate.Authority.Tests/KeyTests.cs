@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
 
-namespace Pluralsight.TrustUs.Certificate.Authority.Tests
+namespace Pluralsight.TrustUs.Tests
 {
     [TestClass]
     public class KeyTests
