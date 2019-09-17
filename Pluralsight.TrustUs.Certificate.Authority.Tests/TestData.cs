@@ -1,6 +1,6 @@
 ﻿namespace Pluralsight.TrustUs.Certificate.Authority.Tests
 {
-    public class TestData
+    public static class TestData
     {
         public static CertificateAuthorityConfiguration Root => new CertificateAuthorityConfiguration
         {
