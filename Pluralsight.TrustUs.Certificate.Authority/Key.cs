@@ -1,4 +1,5 @@
-﻿using cryptlib;
+﻿using Pluralsight.TrustUs.DataStructures;
+using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {

@@ -1,10 +1,12 @@
-﻿namespace Pluralsight.TrustUs.Certificate.Authority.Tests
+﻿using Pluralsight.TrustUs.DataStructures;
+
+namespace Pluralsight.TrustUs.Tests
 {
     public static class TestData
     {
         public static CertificateAuthorityConfiguration Root => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\ca.cer",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\ca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\ca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -26,7 +28,7 @@
 
         public static CertificateAuthorityConfiguration Cleveland => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\clevelandIca.cer",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\clevelandIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\clevelandIca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -46,7 +48,7 @@
 
         public static CertificateAuthorityConfiguration Mumbai => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\mumbaiIca.csr",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\mumbaiIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\mumbaiIca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -66,7 +68,7 @@
 
         public static CertificateAuthorityConfiguration Berlin => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\berlinIca.csr",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\berlinIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\berlinIca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -85,7 +87,7 @@
 
         public static CertificateAuthorityConfiguration Santiago => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\santiagoIca.csr",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\santiagoIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\santiagoIca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -104,7 +106,7 @@
 
         public static CertificateAuthorityConfiguration Moscow => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\moscowIca.csr",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\moscowIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\moscowIca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -124,7 +126,7 @@
 
         public static CertificateAuthorityConfiguration Sydney => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\sydneyIca.csr",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\sydneyIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\sydneyIca.key",
             DistinguishedName = new DistinguishedName
             {
@@ -144,7 +146,7 @@
 
         public static CertificateAuthorityConfiguration Capetown => new CertificateAuthorityConfiguration
         {
-            CertificateFileName = @"C:\Pluralsight\Test\Keys\capeTownIca.csr",
+            CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\capeTownIca.cer",
             KeystoreFileName = @"C:\Pluralsight\Test\Keys\capeTownIca.key",
             DistinguishedName = new DistinguishedName
             {

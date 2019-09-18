@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using cryptlib;
+using Pluralsight.TrustUs.DataStructures;
+using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
@@ -36,7 +37,7 @@ namespace Pluralsight.TrustUs
 
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\clevelandIca.cer",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\clevelandIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\clevelandIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {
@@ -56,7 +57,7 @@ namespace Pluralsight.TrustUs
 
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\mumbaiIca.csr",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\mumbaiIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\mumbaiIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {
@@ -75,7 +76,7 @@ namespace Pluralsight.TrustUs
             //});
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\berlinIca.csr",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\berlinIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\berlinIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {
@@ -93,7 +94,7 @@ namespace Pluralsight.TrustUs
             //});
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\santiagoIca.csr",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\santiagoIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\santiagoIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {
@@ -111,7 +112,7 @@ namespace Pluralsight.TrustUs
             //});
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\moscowIca.csr",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\moscowIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\moscowIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {
@@ -130,7 +131,7 @@ namespace Pluralsight.TrustUs
             //});
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\sydneyIca.csr",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\sydneyIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\sydneyIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {
@@ -149,7 +150,7 @@ namespace Pluralsight.TrustUs
             //});
             //intermediateCertificateAuthorities.Add(new CertificateConfiguration
             //{
-            //    CertificateFileName = @"C:\Pluralsight\Keys\capeTownIca.csr",
+            //    CertificateRequestFileName = @"C:\Pluralsight\Keys\capeTownIca.csr",
             //    KeystoreFileName = @"C:\Pluralsight\Keys\capeTownIca.key",
             //    DistinguishedName = new DistinguishedName
             //    {

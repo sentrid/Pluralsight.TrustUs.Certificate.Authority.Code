@@ -1,4 +1,4 @@
-﻿namespace Pluralsight.TrustUs
+﻿namespace Pluralsight.TrustUs.DataStructures
 {
     public class KeyConfiguration
     {
@@ -24,6 +24,8 @@
         /// Gets or sets the name of the certificate file.
         /// </summary>
         /// <value>The name of the certificate file.</value>
+        public string CertificateRequestFileName { get; set; }
+
         public string CertificateFileName { get; set; }
 
         /// <summary>

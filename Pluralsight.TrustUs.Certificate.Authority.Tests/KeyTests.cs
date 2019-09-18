@@ -1,8 +1,9 @@
 ﻿using System.IO;
-using cryptlib;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Pluralsight.TrustUs.DataStructures;
+using Pluralsight.TrustUs.Libraries;
 
-namespace Pluralsight.TrustUs.Certificate.Authority.Tests
+namespace Pluralsight.TrustUs.Tests
 {
     [TestClass]
     public class KeyTests
@@ -33,7 +34,7 @@ namespace Pluralsight.TrustUs.Certificate.Authority.Tests
             {
                 KeyLabel = "DuckAirlinesTest",
                 PrivateKeyPassword = "P@ssw0rd",
-                CertificateFileName = @"C:\Pluralsight\Tests\DuckAirCert.csr",
+                CertificateRequestFileName = @"C:\Pluralsight\Tests\DuckAirCert.csr",
                 KeystoreFileName = @"C:\Pluralsight\Tests\DuckAirKey.key",
                 DistinguishedName = new DistinguishedName
                 {
