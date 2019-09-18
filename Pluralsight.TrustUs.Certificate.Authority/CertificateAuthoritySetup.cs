@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using cryptlib;
+using Pluralsight.TrustUs.DataStructures;
+using Pluralsight.TrustUs.Libraries;
 
 namespace Pluralsight.TrustUs
 {
@@ -17,24 +18,9 @@ namespace Pluralsight.TrustUs
             GenerateRootCaCertificate(rootCertificateAuthority);
             InitializeCertificateStore(rootCertificateAuthority);
             foreach (var configuration in intermediateCertificateAuthorities)
-                RequestIntermediateCertificate(configuration);
+                GenerateIntermediateCertificate(configuration);
         }
 
-        /// <summary>
-        ///     Starts the ocsp server.
-        /// </summary>
-        public void StartOcspServer()
-        {
-            var ocspSession = crypt.CreateSession(crypt.UNUSED, crypt.SESSION_OCSP_SERVER);
-        }
-
-        /// <summary>
-        ///     Starts the CMP server.
-        /// </summary>
-        public void StartCmpServer()
-        {
-        }
-        
         /// <summary>
         ///     Generates the root ca certificate.
         /// </summary>
@@ -111,11 +97,21 @@ namespace Pluralsight.TrustUs
         }
 
         /// <summary>
-        /// Requests the intermediate certificate.
+        ///     Generates the intermediate certificate.
         /// </summary>
         /// <param name="certificateConfiguration">The certificate configuration.</param>
-        private void RequestIntermediateCertificate(CertificateConfiguration certificateConfiguration)
+        private void GenerateIntermediateCertificate(CertificateConfiguration certificateConfiguration)
         {
+            /***************************************************************/
+            /*                  Get the CA Certificate                     */
+            /***************************************************************/
+            var caKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE,
+                certificateConfiguration.SigningKeyFileName,
+                crypt.KEYOPT_READONLY);
+            var caPrivateKey = crypt.GetPrivateKey(caKeyStore, crypt.KEYID_NAME,
+                certificateConfiguration.SigningKeyLabel,
+                certificateConfiguration.SigningKeyPassword);
+
             /* Create an RSA public/private key context, set a label for it, and generate a key into it */
             var icaKeyPair = crypt.CreateContext(crypt.UNUSED, crypt.ALGO_RSA);
 
@@ -126,32 +122,34 @@ namespace Pluralsight.TrustUs
             var icaKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE,
                 certificateConfiguration.KeystoreFileName,
                 crypt.KEYOPT_CREATE);
-
             crypt.AddPrivateKey(icaKeyStore, icaKeyPair, certificateConfiguration.PrivateKeyPassword);
 
-            var certRequest = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTREQUEST);
+            var certChain = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTCHAIN);
 
-            crypt.SetAttribute(certRequest, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, icaKeyPair);
-            crypt.SetAttributeString(certRequest, crypt.CERTINFO_COUNTRYNAME,
+            crypt.SetAttribute(certChain, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, icaKeyPair);
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_COUNTRYNAME,
                 certificateConfiguration.DistinguishedName.Country);
-            crypt.SetAttributeString(certRequest, crypt.CERTINFO_ORGANIZATIONNAME,
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_ORGANIZATIONNAME,
                 certificateConfiguration.DistinguishedName.Organization);
-            crypt.SetAttributeString(certRequest, crypt.CERTINFO_ORGANIZATIONALUNITNAME,
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_ORGANIZATIONALUNITNAME,
                 certificateConfiguration.DistinguishedName.OrganizationalUnit);
-            crypt.SetAttributeString(certRequest, crypt.CERTINFO_COMMONNAME,
+            crypt.SetAttributeString(certChain, crypt.CERTINFO_COMMONNAME,
                 certificateConfiguration.DistinguishedName.CommonName);
+            crypt.SetAttribute(certChain, crypt.CERTINFO_CA, 1);
 
-            crypt.SignCert(certRequest, icaKeyPair);
+            crypt.SignCert(certChain, caPrivateKey);
+            crypt.AddPublicKey(icaKeyStore, certChain);
 
-            var dataSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_CERTIFICATE, certRequest);
+            var dataSize = crypt.ExportCert(null, 0, crypt.CERTFORMAT_CERTIFICATE, certChain);
             var exportedCert = new byte[dataSize];
-            crypt.ExportCert(exportedCert, dataSize * 2, crypt.CERTFORMAT_CERTIFICATE, certRequest);
+            crypt.ExportCert(exportedCert, dataSize * 2, crypt.CERTFORMAT_CERTIFICATE, certChain);
 
             File.WriteAllBytes(certificateConfiguration.CertificateFileName, exportedCert);
 
-            crypt.DestroyCert(certRequest);
-
+            crypt.DestroyCert(certChain);
             crypt.KeysetClose(icaKeyStore);
+            crypt.KeysetClose(caKeyStore);
+            crypt.DestroyContext(caPrivateKey);
             crypt.DestroyContext(icaKeyPair);
         }
     }

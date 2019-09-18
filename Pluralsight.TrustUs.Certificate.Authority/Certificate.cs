@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
@@ -70,12 +69,11 @@ namespace Pluralsight.TrustUs
                 keyConfiguration.DistinguishedName.CommonName);
 
             crypt.SignCert(certificate, keyPairContext);
-            
+
             var certificateText = ExportCertificateAsText(certificate);
             File.WriteAllText(keyConfiguration.CertificateRequestFileName, certificateText);
 
             crypt.DestroyCert(certificate);
-
         }
 
         public void CreateRevocationRequest(string certificateFileName, string crlFileName)

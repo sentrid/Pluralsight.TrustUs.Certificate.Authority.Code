@@ -12,12 +12,12 @@ namespace Pluralsight.TrustUs.Tests
         [ClassInitialize]
         public static void InitializeTests(TestContext context)
         {
-            if (Directory.Exists(@"C:\Pluralsight\Test\Keys"))
-            {
-                Directory.Delete(@"C:\Pluralsight\Test\Keys", true);
-            }
+            //if (Directory.Exists(@"C:\Pluralsight\Test\Keys"))
+            //{
+            //    Directory.Delete(@"C:\Pluralsight\Test\Keys", true);
+            //}
 
-            Directory.CreateDirectory(@"C:\Pluralsight\Test\Keys");
+            //Directory.CreateDirectory(@"C:\Pluralsight\Test\Keys");
 
             crypt.Init();
         }
@@ -31,9 +31,7 @@ namespace Pluralsight.TrustUs.Tests
         [TestMethod]
         public void TestCreateCa()
         {
-            var certificateAuthority = new CertificateAuthority();
-
-
+            var certificateAuthoritySetup = new CertificateAuthoritySetup();
 
             var intermediateCertificateAuthorities = new List<CertificateConfiguration>
             {
@@ -45,7 +43,7 @@ namespace Pluralsight.TrustUs.Tests
                 TestData.Santiago,
                 TestData.Sydney
             };
-            certificateAuthority.Install(TestData.Root, intermediateCertificateAuthorities);
+            certificateAuthoritySetup.Install(TestData.Root, intermediateCertificateAuthorities);
         }
 
         [TestMethod]
@@ -77,11 +75,11 @@ namespace Pluralsight.TrustUs.Tests
             certificateAuthority.IssueCertificate(keyConfiguration);
         }
 
-        [TestMethod]
-        public void TestRevoke()
-        {
-            var cert = new Certificate();
-            cert.CreateRevocationRequest(@"C:\Pluralsight\Test\Keys\DuckAir.cer", @"C:\Pluralsight\Test\Keys\DuckAir.crlq");
-        }
+        //[TestMethod]
+        //public void TestRevoke()
+        //{
+        //    var cert = new Certificate();
+        //    cert.CreateRevocationRequest(@"C:\Pluralsight\Test\Keys\DuckAir.cer", @"C:\Pluralsight\Test\Keys\DuckAir.crlq");
+        //}
     }
 }
