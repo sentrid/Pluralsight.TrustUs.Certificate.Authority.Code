@@ -21,7 +21,7 @@ namespace Pluralsight.TrustUs
         private static void Main(string[] args)
         {
             crypt.Init();
-            var trustUsCertificateAuthority = new CertificateAuthority();
+            var trustUsCertificateAuthority = new CertificateAuthoritySetup();
             var intermediateCertificateAuthorities = new List<CertificateConfiguration>()
             {
                 ConfigurationData.Berlin,

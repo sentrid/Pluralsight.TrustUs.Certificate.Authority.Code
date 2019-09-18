@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Certificate.cs" />
+    <Compile Include="CertificateAuthoritySetup.cs" />
     <Compile Include="DataStructures\CertificateAuthorityConfiguration.cs" />
     <Compile Include="DataStructures\CertificateConfiguration.cs" />
     <Compile Include="CertificateAuthority.cs" />

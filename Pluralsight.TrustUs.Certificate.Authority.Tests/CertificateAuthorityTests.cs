@@ -31,9 +31,7 @@ namespace Pluralsight.TrustUs.Tests
         [TestMethod]
         public void TestCreateCa()
         {
-            var certificateAuthority = new CertificateAuthority();
-
-
+            var certificateAuthority = new CertificateAuthoritySetup();
 
             var intermediateCertificateAuthorities = new List<CertificateConfiguration>
             {
@@ -81,7 +79,7 @@ namespace Pluralsight.TrustUs.Tests
         public void TestRevoke()
         {
             var cert = new Certificate();
-            cert.CreateRevocationRequest(@"C:\Pluralsight\Test\Keys\DuckAir.cer", @"C:\Pluralsight\Test\Keys\DuckAir.crlq");
+            //cert.CreateRevocationRequest(@"C:\Pluralsight\Test\Keys\DuckAir.cer", @"C:\Pluralsight\Test\Keys\DuckAir.crlq");
         }
     }
 }
