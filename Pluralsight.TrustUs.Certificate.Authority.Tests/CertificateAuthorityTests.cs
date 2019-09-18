@@ -12,12 +12,12 @@ namespace Pluralsight.TrustUs.Tests
         [ClassInitialize]
         public static void InitializeTests(TestContext context)
         {
-            if (Directory.Exists(@"C:\Pluralsight\Test\Keys"))
-            {
-                Directory.Delete(@"C:\Pluralsight\Test\Keys", true);
-            }
+            //if (Directory.Exists(@"C:\Pluralsight\Test\Keys"))
+            //{
+            //    Directory.Delete(@"C:\Pluralsight\Test\Keys", true);
+            //}
 
-            Directory.CreateDirectory(@"C:\Pluralsight\Test\Keys");
+            //Directory.CreateDirectory(@"C:\Pluralsight\Test\Keys");
 
             crypt.Init();
         }
