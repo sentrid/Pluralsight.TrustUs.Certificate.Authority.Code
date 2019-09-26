@@ -8,12 +8,13 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Pluralsight.TrustUs</RootNamespace>
     <AssemblyName>Pluralsight.TrustUs.Certificate.Authority</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -33,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,6 +54,7 @@
     <Compile Include="DataStructures\CertificateConfiguration.cs" />
     <Compile Include="CertificateAuthority.cs" />
     <Compile Include="DataStructures\ConfigurationData.cs" />
+    <Compile Include="DotNetCrypto.cs" />
     <Compile Include="Libraries\cryptlib.cs" />
     <Compile Include="DataStructures\DistinguishedName.cs" />
     <Compile Include="Key.cs" />
@@ -59,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="cl32.dll">

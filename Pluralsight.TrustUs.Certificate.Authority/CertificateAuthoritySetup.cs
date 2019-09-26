@@ -39,6 +39,8 @@ namespace Pluralsight.TrustUs
                 crypt.KEYOPT_CREATE);
             crypt.AddPrivateKey(caKeyStore, caKeyPair, rootCertificateAuthority.PrivateKeyPassword);
 
+            crypt.KeysetClose(caKeyStore);
+
             var certificate = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTIFICATE);
 
             crypt.SetAttribute(certificate, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, caKeyPair);
@@ -76,7 +78,7 @@ namespace Pluralsight.TrustUs
 
             File.WriteAllBytes(rootCertificateAuthority.CertificateFileName, exportedCert);
 
-            crypt.KeysetClose(caKeyStore);
+            
             crypt.DestroyContext(caKeyPair);
             crypt.DestroyCert(certificate);
         }
@@ -124,6 +126,8 @@ namespace Pluralsight.TrustUs
                 crypt.KEYOPT_CREATE);
             crypt.AddPrivateKey(icaKeyStore, icaKeyPair, certificateConfiguration.PrivateKeyPassword);
 
+            crypt.KeysetClose(icaKeyStore);
+
             var certChain = crypt.CreateCert(crypt.UNUSED, crypt.CERTTYPE_CERTCHAIN);
 
             crypt.SetAttribute(certChain, crypt.CERTINFO_SUBJECTPUBLICKEYINFO, icaKeyPair);
@@ -147,7 +151,7 @@ namespace Pluralsight.TrustUs
             File.WriteAllBytes(certificateConfiguration.CertificateFileName, exportedCert);
 
             crypt.DestroyCert(certChain);
-            crypt.KeysetClose(icaKeyStore);
+            
             crypt.KeysetClose(caKeyStore);
             crypt.DestroyContext(caPrivateKey);
             crypt.DestroyContext(icaKeyPair);

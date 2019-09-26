@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Pluralsight.TrustUs.DataStructures;
 using Pluralsight.TrustUs.Libraries;
 
@@ -10,6 +9,18 @@ namespace Pluralsight.TrustUs
     /// </summary>
     public class CertificateAuthority
     {
+        public static void StartOcspServer()
+        {
+            var session = crypt.CreateSession(crypt.UNUSED, crypt.SESSION_OCSP_SERVER);
+            var privateKeyStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Test\Keys\clevelandica.key",
+                crypt.KEYOPT_READONLY);
+            var privateKey = crypt.GetPrivateKey(privateKeyStore, crypt.KEYID_NAME, "Cleveland", "P@ssw0rd");
+            var certStore = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_ODBC_STORE, "TrustUsTest", crypt.KEYOPT_NONE);
+            crypt.SetAttribute(session, crypt.SESSINFO_PRIVATEKEY, privateKey);
+            crypt.SetAttribute(session, crypt.SESSINFO_KEYSET, certStore);
+            crypt.SetAttribute(session, crypt.SESSINFO_ACTIVE, 1);
+            crypt.KeysetClose(privateKeyStore);
+        }
 
         public void SubmitCertificateRequest(string certificateRequestFileName)
         {
@@ -59,8 +70,5 @@ namespace Pluralsight.TrustUs
             crypt.KeysetClose(certStore);
             crypt.KeysetClose(caKey);
         }
-
-        
-
     }
 }

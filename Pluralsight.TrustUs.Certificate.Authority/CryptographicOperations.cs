@@ -31,38 +31,34 @@ namespace Pluralsight.TrustUs
 
         public string Decrypt(byte[] encryptedData)
         {
-            try
-            {
-                var keyset = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Test\Keys\DuckAir.key",
-                    crypt.KEYOPT_READONLY);
+            var keySet = crypt.KeysetOpen(crypt.UNUSED, crypt.KEYSET_FILE, @"C:\Pluralsight\Test\Keys\DuckAir.key",
+                crypt.KEYOPT_READONLY);
 
-                var envelope = crypt.CreateEnvelope(crypt.UNUSED, crypt.FORMAT_AUTO);
+            var envelope = crypt.CreateEnvelope(crypt.UNUSED, crypt.FORMAT_AUTO);
+            var pushDataLength = crypt.PushData(envelope, encryptedData);
+            crypt.SetAttribute(envelope, crypt.ENVINFO_KEYSET_DECRYPT, keySet);
+            var attributeType = crypt.GetAttribute(envelope, crypt.ATTRIBUTE_CURRENT);
+            if (attributeType == crypt.ENVINFO_PRIVATEKEY)
+                crypt.SetAttributeString(envelope, crypt.ENVINFO_PASSWORD, "P@ssw0rd");
 
-                //crypt.SetAttribute(envelope, crypt.ENVINFO_DATASIZE, encryptedData.Length);
 
-                var pushDataLength = crypt.PushData(envelope, encryptedData);
-                crypt.SetAttribute(envelope, crypt.ENVINFO_KEYSET_DECRYPT, keyset);
-                var attributeType = crypt.GetAttribute(envelope, crypt.ATTRIBUTE_CURRENT);
-                if (attributeType == crypt.ENVINFO_PRIVATEKEY)
-                    crypt.SetAttributeString(envelope, crypt.ENVINFO_PASSWORD, "P@ssw0rd");
 
-                crypt.FlushData(envelope);
-                var decryptedDataBuffer = new byte[4096];
-                var dataLength = crypt.PopData(envelope, decryptedDataBuffer, 4096);
-                var decryptedData = new byte[dataLength];
-                Array.Copy(decryptedDataBuffer, decryptedData, dataLength);
-                var data = Encoding.ASCII.GetString(decryptedData);
 
-                crypt.DestroyEnvelope(envelope);
-                crypt.KeysetClose(keyset);
 
-                return data;
-            }
-            catch (CryptException e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+
+
+
+            crypt.FlushData(envelope);
+            var decryptedDataBuffer = new byte[4096];
+            var dataLength = crypt.PopData(envelope, decryptedDataBuffer, 4096);
+            var decryptedData = new byte[dataLength];
+            Array.Copy(decryptedDataBuffer, decryptedData, dataLength);
+            var data = Encoding.ASCII.GetString(decryptedData);
+
+            crypt.DestroyEnvelope(envelope);
+            crypt.KeysetClose(keySet);
+
+            return data;
         }
     }
 }

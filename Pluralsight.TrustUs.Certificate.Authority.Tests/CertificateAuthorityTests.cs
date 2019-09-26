@@ -52,7 +52,7 @@ namespace Pluralsight.TrustUs.Tests
             var keyConfiguration = new CertificateConfiguration
             {
                 CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\DuckAir.csr",
-                CertificateFileName = @"C:\Pluralsight\Test\Keys\DuckAir.cer",
+                CertificateFileName = @"C:\Pluralsight\Test\Keys\FlightOps.cer",
                 KeyLabel = "DuckAirlinesKey",
                 KeystoreFileName = @"C:\Pluralsight\Test\Keys\DuckAir.key",
                 PrivateKeyPassword = "QuackQuack",
@@ -71,15 +71,50 @@ namespace Pluralsight.TrustUs.Tests
             };
             Key.GenerateKeyPair(keyConfiguration);
             var certificateAuthority = new CertificateAuthority();
-            certificateAuthority.SubmitCertificateRequest(@"C:\Pluralsight\Test\Keys\Duckair.csr");
+            certificateAuthority.SubmitCertificateRequest(@"C:\Pluralsight\Test\Keys\FlightOps.csr");
             certificateAuthority.IssueCertificate(keyConfiguration);
         }
 
         [TestMethod]
         public void TestRevoke()
         {
-            var cert = new Certificate();
             //cert.CreateRevocationRequest(@"C:\Pluralsight\Test\Keys\DuckAir.cer", @"C:\Pluralsight\Test\Keys\DuckAir.crlq");
+        }
+
+        [TestMethod]
+        public void SignRequest()
+        {
+            var keyConfiguration = new CertificateConfiguration
+            {
+                CertificateRequestFileName = @"C:\Pluralsight\Test\Keys\FlightOps.csr",
+                CertificateFileName = @"C:\Pluralsight\Test\Keys\FlightOps.cer",
+                KeyLabel = "DuckAirlinesKey",
+                KeystoreFileName = @"C:\Pluralsight\Test\Keys\FlightOps.key",
+                PrivateKeyPassword = "QuackQuack",
+                DistinguishedName = new DistinguishedName
+                {
+                    CommonName = "Flight Operations",
+                    OrganizationalUnit = "Security",
+                    Organization = "Duck Airlines",
+                    Locality = "Cleveland",
+                    State = "OH",
+                    Country = "US"
+                },
+                SigningKeyLabel = "Cleveland",
+                SigningKeyFileName = @"C:\Pluralsight\Test\Keys\ClevelandIca.key",
+                SigningKeyPassword = "P@ssw0rd"
+            };
+
+            var certificateAuthority = new CertificateAuthority();
+            certificateAuthority.SubmitCertificateRequest(@"C:\Pluralsight\Test\Keys\FlightOps.csr");
+            certificateAuthority.IssueCertificate(keyConfiguration);
+        }
+
+        [TestMethod]
+        public void TestOcsp()
+        {
+            CertificateAuthority.StartOcspServer();
+
         }
     }
 }

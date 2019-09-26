@@ -49,5 +49,11 @@ namespace Pluralsight.TrustUs.Tests
 
             Key.GenerateKeyPair(keyConfiguration);
         }
+
+        [TestMethod]
+        public void TestExportPrivateKey()
+        {
+            var privateKey = Key.GetPrivateKey(@"C:\Pluralsight\Test\Keys\clevelandIca.key", "Cleveland", "P@ssw0rd");
+        }
     }
 }

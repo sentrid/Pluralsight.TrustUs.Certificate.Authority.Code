@@ -178,6 +178,12 @@ namespace Pluralsight.TrustUs
                     case 1:
                         trustUsCertificateAuthority.Install(ConfigurationData.Root, intermediateCertificateAuthorities);
                         break;
+                    case 2:
+                        DotNetCrypto.TestCert();
+                        break;
+                    case 3:
+                        DotNetCrypto.GenerateKeyPair();
+                        break;
                     case 5:
                         done = true;
                         break;
